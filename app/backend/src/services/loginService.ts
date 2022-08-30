@@ -11,7 +11,7 @@ const loginService = async (payload: ILogin) => {
 
   const token = await tokenGenerate({ id, username, role, email });
 
-  return token;
+  return { token };
 };
 
 export default loginService;
