@@ -10,7 +10,6 @@ class Team extends Model {
 Team.init({
   teamName: STRING,
 }, {
-  // ... Outras configs
   underscored: true,
   sequelize: db,
   modelName: 'team',
