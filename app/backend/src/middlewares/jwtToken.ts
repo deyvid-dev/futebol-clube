@@ -23,7 +23,19 @@ const tokenGenerate = async (payload: IUser) => {
   return token;
 };
 
+const matchValidateToken = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token = req.headers.authorization;
+    const result = jwt.verify(token as string, SECRET) as jwt.JwtPayload;
+    req.body.user = result;
+    next();
+  } catch (e) {
+    return res.status(401).json({ message: 'Token must be a valid token' });
+  }
+};
+
 export {
   tokenMiddleware,
   tokenGenerate,
+  matchValidateToken,
 };

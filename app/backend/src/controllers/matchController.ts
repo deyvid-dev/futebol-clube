@@ -14,8 +14,14 @@ class MatchController {
   public create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const CMatch = req.body;
-
+      if (CMatch.homeTeam === CMatch.awayTeam) {
+        return res.status(401)
+          .json({ message: 'It is not possible to create a match with two equal teams' });
+      }
       const matchs = await MatchService.create(CMatch);
+      if (matchs === 'falsy') {
+        return res.status(404).json({ message: 'There is no team with such id!' });
+      }
       return res.status(201).json(matchs);
     } catch (e) {
       next(e);
