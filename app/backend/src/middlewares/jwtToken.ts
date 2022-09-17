@@ -10,8 +10,6 @@ const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) 
   try {
     const result = jwt.verify(token, SECRET) as jwt.JwtPayload;
     req.body = { role: result.role };
-    console.log('CONSOLE DO JWT -------');
-    console.log(req.body);
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' });

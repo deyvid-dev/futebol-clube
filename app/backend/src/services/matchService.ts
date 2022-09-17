@@ -11,8 +11,21 @@ class MatchService {
         { model: Team, as: 'teamAway', attributes: ['teamName'] },
       ],
     });
-    console.log(matchs);
+
     return matchs as unknown as IMatch[];
+  };
+
+  static create = async (data: IMatch): Promise<IMatch> => {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = data;
+    const match = await Match.create({
+      homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress: true });
+    console.log(match);
+    return match as unknown as IMatch;
+  };
+
+  static finish = async (id: number) => {
+    const result = await Match.update({ inProgress: false }, { where: { id } });
+    return result;
   };
 }
 
