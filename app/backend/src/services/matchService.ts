@@ -11,7 +11,6 @@ class MatchService {
         { model: Team, as: 'teamAway', attributes: ['teamName'] },
       ],
     });
-
     return matchs as unknown as IMatch[];
   };
 
@@ -34,6 +33,12 @@ class MatchService {
     const result = await Match.update({ inProgress: false }, { where: { id } });
 
     return result;
+  };
+
+  static update = async (id: number, homeTeamGoals: string, awayTeamGoals: string) => {
+    const update = await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+
+    return update;
   };
 }
 

@@ -37,6 +37,21 @@ class MatchController {
       next(e);
     }
   };
+
+  public update = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        return 'Id not found';
+      }
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+      const result = await MatchService.update(Number(id), homeTeamGoals, awayTeamGoals);
+      if (!result) return 'Not updated goals';
+      return res.json({ message: 'Updated goals' });
+    } catch (e) {
+      next(e);
+    }
+  };
 }
 
 export default MatchController;
