@@ -42,7 +42,7 @@ class MatchController {
     try {
       const { id } = req.params;
       if (!id) {
-        return 'Id not found';
+        return 'id not found';
       }
       const { homeTeamGoals, awayTeamGoals } = req.body;
       const result = await MatchService.update(Number(id), homeTeamGoals, awayTeamGoals);
